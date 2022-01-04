@@ -1,10 +1,10 @@
 FROM tugboatqa/php:7-apache
 
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
-RUN apt-get update && apt-get install bash git curl patch libmagickwand-dev -y
+RUN apt-get update && apt-get install bash git curl patch libmagickwand-dev libzip-dev zip -y
 RUN pecl install imagick
 RUN docker-php-ext-enable imagick
-RUN docker-php-ext-install gd bz2 pdo
+RUN docker-php-ext-install gd bz2 pdo zip
 RUN pecl install pcov
 RUN echo 'extension=pcov.so' >> /usr/local/etc/php/php.ini
 
