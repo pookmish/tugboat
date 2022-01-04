@@ -29,3 +29,5 @@ RUN composer global config prefer-stable true
 RUN composer global require drush/drush acquia/blt-launcher
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
 RUN drush version
+
+RUN usermod -a -G root www-data
