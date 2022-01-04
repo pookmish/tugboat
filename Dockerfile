@@ -1,11 +1,13 @@
 FROM tugboatqa/php:7-apache
 
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
-RUN apt-get update && apt-get install bash git curl patch libmagickwand-dev libzip-dev zip -y
-RUN pecl install imagick
+RUN apt-get update && apt-get install bash git curl patch libmagickwand-dev libzip-dev zip imagemagick -y
+
+RUN pecl install pcov imagick
 RUN docker-php-ext-enable imagick
+RUN docker-php-ext-configure gd --with-jpeg
 RUN docker-php-ext-install gd bz2 pdo zip
-RUN pecl install pcov
+
 RUN echo 'extension=pcov.so' >> /usr/local/etc/php/php.ini
 
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
